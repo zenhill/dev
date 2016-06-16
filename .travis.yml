@@ -1,0 +1,29 @@
+language: node_js
+node_js:
+- "4"
+branches:
+  only:
+  - blog
+env:
+  global:
+    secure: fFMF+bLLDmth+fDnQQuAgoe1GqJBYqkuwKYhcMRrJJUx5A/3rtXU0HyDmwWZ/2FtSpCFkC++Ot9s8IwLRo8UnCbgcd6wr59A9grNs6MoyA3Zuqa/apVBaeKSEzEC5yM3qNo7KM8DWdmdFfftIyaK1edxUOQrHwVVVFBU0kJ+/tmPiHbKIbnuwAEDgjIUoDkr7csLxPVx/p8JQS7rK9glU+IfgvnCcy1jLNFuaBCxT2OMFtnFmxHbjtLqVHH/7U8dvcDrEneZ9l2BRW3bS0Eo00/qjMcR5QA2WN4oMDW9+j01Bq+mHurF5jAx0zmSTFsZ57VuE051R9D8+kdycbKkj0TYkDGflZR80ooZWS4+uUrd1TSPnU9Pv5GLXdHkXgR0usdir9d1WUhjpt0beriYWUxKXPi0Fl0IhQBoXppaLA9ARer7jy8sUDl6ERb/WtJXf2ug4F/SDGlxm3fOeLqrtV662HF4wqX449UDdcDNBTPDmgdNrIi2Gk3RteJP4SJdaQNODEOdkQtP1qda+STQOI47md3G0w2r125/MdvgDd9WY58taKr62FU3jYQG0gEjxdcOd/u8M1SkCqtn0B5iw6/oxHnowi+x2kwgVhqBC2dCbspEhh3SBiP7z8ouzG32TA738+RlJggu70+VszbjxMFkakgk+lj/4c2ngwVTE6Y=
+before_install:
+- export TZ='Asia/Shanghai'
+- npm install -g hexo
+- npm install -g hexo-cli
+before_script:
+#
+- git config --global user.name "zenhill"
+- git config --global user.email "kenjilee81460@gmail.com"
+# github
+- sed -i'' "s~git@github.com:zenhill/zenhill.github.io.git~https://${GH_TOKEN}:x-oauth-basic@github.com/zenhill/zenhill.github.io.git~" _config.yml
+#
+install:
+- npm install
+#
+script:
+- hexo clean
+- hexo generate
+#
+after_success:
+- hexo deploy
